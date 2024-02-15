@@ -3,6 +3,8 @@ name: Slack
 on: 
   pull_request:
     branches: [main]
+    paths:
+      - 'config/credits.3ncr'
 
 jobs: 
   slack:
