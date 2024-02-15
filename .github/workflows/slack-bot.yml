@@ -2,9 +2,9 @@
 name: Slack
 on: 
   pull_request:
-    branches: [main]
     paths:
-      - 'config/credits.3ncr'
+        - 'config/credits.3ncr'
+    branches: [main]
 
 jobs: 
   slack:
