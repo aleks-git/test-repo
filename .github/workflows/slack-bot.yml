@@ -19,4 +19,4 @@ jobs:
         SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
       uses: pullreminders/slack-action@master
       with:
-        args: '{\"channel\":\"C06JWMNTCA1\",\"text\":\"PDFE (*${{github.ref_name}}* branch) - Credits file was changed in ${{github.ref_name}}. Do not forget to update it on your side!!!\"}'
+        args: '{\"channel\":\"C06JWMNTCA1\",\"text\":\"PDFE (*${{github.ref_name}}* branch) - Credits file was changed in ${{github.head_ref}}. Do not forget to update it on your side!!!\"}'
