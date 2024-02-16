@@ -10,12 +10,13 @@ on:
 
 jobs: 
   slack:
+    if: github.event.pull_request.merged == true
     runs-on: ubuntu-latest
 
     steps: 
-    - name: Notify slack
+    - name: Notify slack if PR was merged
       env:
         SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
       uses: pullreminders/slack-action@master
       with:
-        args: '{\"channel\":\"C06JWMNTCA1\",\"text\":\"PDFE (*${{github.ref_name}}* branch) - credits file was changed. Do not forget to update it on your side!!!\"}'
+        args: '{\"channel\":\"C06JWMNTCA1\",\"text\":\"PDFE (*${{github.ref_name}}* branch) - Credits file was changed. Do not forget to update it on your side!!!\"}'
