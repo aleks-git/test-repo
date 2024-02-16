@@ -3,7 +3,7 @@ name: Slack
 on: 
   pull_request:
     paths:
-          - 'config/credits.3ncr'
+        - 'config/credits.3ncr'
     types:
       - closed
     branches: [main]
