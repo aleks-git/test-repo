@@ -21,7 +21,7 @@ jobs:
     #if: github.event_name == 'push'
     steps:
       - name: Checkout Code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 #
 #      - name: Set up PHP
 #        uses: shivammathur/setup-php@v2
@@ -49,7 +49,7 @@ jobs:
     #if: github.event.pull_request.merged == true
     steps:
       - name: Checkout Code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Display ENV (deploy)
         run: "echo $SERVER_TEST !! build"
