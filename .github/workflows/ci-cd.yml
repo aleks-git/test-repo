@@ -18,7 +18,7 @@ env:
 jobs:
   build-and-test:
     runs-on: ubuntu-latest
-    if: github.event_name == 'push'
+    #if: github.event_name == 'push'
     steps:
       - name: Checkout Code
         uses: actions/checkout@v3
@@ -48,10 +48,11 @@ jobs:
     needs: build-and-test
     #if: github.event.pull_request.merged == true
     steps:
-      - name: Display ENV (deploy)
-        run: "echo $SERVER_TEST !! build"
       - name: Checkout Code
         uses: actions/checkout@v3
+
+      - name: Display ENV (deploy)
+        run: "echo $SERVER_TEST !! build"
 #
 #      - name: Deploy
 #        env:
