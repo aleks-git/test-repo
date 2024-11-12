@@ -2,8 +2,8 @@
 name: CI/CD
 on:
   pull_request:
-    types:
-      - closed
+#    types:
+#      - closed
     branches: [main, stage]
   push:
     branches: [main, stage]
