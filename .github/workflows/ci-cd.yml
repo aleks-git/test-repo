@@ -11,7 +11,7 @@ on:
 
 env:
   SERVER_USER:  ${{ secrets.SERVER_USER }}
-  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  GITHUB_TOKEN: ${{ secrets.DEPLOY_TOKEN }}
   SERVER_IP:    ${{ github.ref_name == 'main' && secrets.PROD_SERVER_IP || secrets.STAGE_SERVER_IP }}
 
 jobs:
