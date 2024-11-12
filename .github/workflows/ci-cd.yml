@@ -72,16 +72,17 @@ jobs:
 #          git tag $PROD_TAG
 #          git push origin $PROD_TAG
 
-  notification:
-    name: Notify
-    runs-on: ubuntu-latest
-    needs: [ build ]
-    if: always()
-    steps:
-      - uses: martialonline/workflow-status@v3
-        id: check
-      - uses: 8398a7/action-slack@v3
-        with:
-          status: ${{ steps.check.outputs.status }}
-        env:
-          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+
+#  notification:
+#    name: Notify
+#    runs-on: ubuntu-latest
+#    needs: [ build ]
+#    if: always()
+#    steps:
+#      - uses: martialonline/workflow-status@v3
+#        id: check
+#      - uses: 8398a7/action-slack@v3
+#        with:
+#          status: ${{ steps.check.outputs.status }}
+#        env:
+#          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
