@@ -6,7 +6,7 @@ on:
 #      - 'config/credits.3ncr'
     types:
       - closed
-    branches: [master, stage]
+    branches: [main, stage]
   workflow_dispatch:  # Allows manual triggering
 
 env:
@@ -27,7 +27,7 @@ jobs:
           php-version: '8.0'
 
       - name: Display ENV
-        run: "echo {{ secrets.GITHUB_TOKEN }} !!"
+        run: "echo ${{ secrets.GITHUB_TOKEN }} !!"
 
 #      - name: Install PHP Dependencies
 #        run: composer install --prefer-dist --no-progress --no-interaction --no-scripts
