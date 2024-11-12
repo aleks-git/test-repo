@@ -15,7 +15,7 @@ env:
   SERVER_USER:  ${{ secrets.SERVER_USER }}
   GITHUB_TOKEN: ${{ secrets.DEPLOY_TOKEN }}
   SERVER_IP:    ${{ github.ref_name == 'main' && secrets.PROD_SERVER_IP || secrets.STAGE_SERVER_IP }}
-  SERVER_TEST:  ${{ github.ref_name == 'main' && 'prod env --' || 'stage env --' }}
+  SERVER_TEST:  ${{ github.ref_name == 'mains' && 'prod env --' || 'stage env --' }}
 
 jobs:
   build-and-test:
