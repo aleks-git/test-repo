@@ -2,8 +2,8 @@
 name: CI/CD
 on:
   pull_request:
-#    types:
-#      - closed
+    types:
+      - closed
     branches: [main, stage]
   push:
     branches: [main, stage]
@@ -45,7 +45,7 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     #needs: build-and-test
-    if: github.event.pull_request.merged == true
+    if: (github.event_name == 'pull_request' && github.event.pull_request.merged == true)
     steps:
       - name: Checkout Code
         uses: actions/checkout@v4
