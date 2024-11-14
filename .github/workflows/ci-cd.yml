@@ -54,7 +54,7 @@ jobs:
           node-version: '22.9.0'
           node-version-file: 'package.json'
       - run: npm install
-      - run: npm run gulp:build:prod
+      - run: npm run
 
 #      - name: Install NPM Dependencies
 #        run: npm install
