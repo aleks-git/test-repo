@@ -15,20 +15,6 @@ env:
   SERVER_IP:    ${{ github.ref_name == 'main' && secrets.PROD_SERVER_IP || secrets.STAGE_SERVER_IP }}
 
 jobs:
-#  test:
-#    runs-on: ubuntu-latest
-#    if: github.event_name == 'pull_request'
-#    steps:
-#      - name: Checkout Code
-#        uses: actions/checkout@v4
-#
-#      - name: Set up PHP
-#        uses: shivammathur/setup-php@v2
-#        with:
-#          php-version: '8.0'
-
-
-
   build-and-test:
     runs-on: ubuntu-latest
     if: github.event_name == 'pull_request'
@@ -41,20 +27,21 @@ jobs:
         with:
           php-version: '8.0'
 
-#      - name: Install PHP Dependencies
-#        uses: php-actions/composer@v6
-#        with:
-#          dev: no
-#          version: '2.6.6'
-#          php_version: '8.0'
+      - name: Install PHP Dependencies
+        uses: php-actions/composer@v6
+        with:
+          dev: no
+          version: '2.6.6'
+          php_version: '8.0'
+          ssh_key: ${{ secrets.SSH_KEY }}
+          ssh_key_pub: ${{ secrets.SSH_KEY_PUB }}
 #          #run: composer install --prefer-dist --no-progress --no-interaction --no-scripts
 
       - uses: actions/setup-node@v4
         with:
           node-version: '22.9.0'
-          node-version-file: 'package.json'
       - run: npm install
-      - run: npm run
+      - run: npm run gulp:build:prod
 
 #      - name: Install NPM Dependencies
 #        run: npm install
