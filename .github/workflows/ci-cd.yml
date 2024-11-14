@@ -28,7 +28,7 @@ jobs:
 #          php-version: '8.0'
 
       - name: Display ENV (test)
-        run: "echo !!-test"
+        run: "echo !!-test "
 
 #      - name: Install PHP Dependencies
 #        run: composer install --prefer-dist --no-progress --no-interaction --no-scripts
