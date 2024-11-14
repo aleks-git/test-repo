@@ -15,21 +15,21 @@ env:
   SERVER_IP:    ${{ github.ref_name == 'main' && secrets.PROD_SERVER_IP || secrets.STAGE_SERVER_IP }}
 
 jobs:
-  test:
-    runs-on: ubuntu-latest
-    if: github.event_name == 'pull_request'
-    steps:
-      - name: Checkout Code
-        uses: actions/checkout@v4
+#  test:
+#    runs-on: ubuntu-latest
+#    if: github.event_name == 'pull_request'
+#    steps:
+#      - name: Checkout Code
+#        uses: actions/checkout@v4
+#
+#      - name: Set up PHP
+#        uses: shivammathur/setup-php@v2
+#        with:
+#          php-version: '8.0'
 
-      - name: Set up PHP
-        uses: shivammathur/setup-php@v2
-        with:
-          php-version: '8.0'
 
 
-
-  build:
+  build-and-test:
     runs-on: ubuntu-latest
     if: github.event_name == 'pull_request'
     steps:
@@ -52,14 +52,19 @@ jobs:
 #      -name: Installf Node
 #        uses: actions/setup-node@v3
 #        with:
-#          node-version: 18.x
+#          node-version: 22.9.0
 
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22.9.0
+      - run: npm ci
+      - run: npm run gulp:build:prod
 
-      - name: Install NPM Dependencies
-        run: npm install
-
-      - name: Build Frontend Assets
-        run: npm run gulp:build:prod
+#      - name: Install NPM Dependencies
+#        run: npm install
+#
+#      - name: Build Frontend Assets
+#        run: npm run gulp:build:prod
 
 #      - name: Run PHP Tests
 #        run: path/to/phpunit
