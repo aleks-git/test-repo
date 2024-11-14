@@ -1,11 +1,11 @@
 
 name: CI/CD
 on:
+  push:
+    branches: [ main, stage ]
   pull_request:
     types:
       - closed
-    branches: [main, stage]
-  push:
     branches: [main, stage]
   workflow_dispatch:  # Allows manual triggering
 
@@ -51,7 +51,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Display ENV (deploy)
-        run: "echo !!-build"
+        run: "echo !!-deploy"
 #
 #      - name: Deploy
 #        env:
