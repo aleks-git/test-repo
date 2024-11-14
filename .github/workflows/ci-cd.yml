@@ -1,11 +1,11 @@
 
 name: CI/CD
 on:
-  pull_request:
-#    types:
-#      - closed
-    branches: [main, stage]
   push:
+    branches: [ main, stage ]
+  pull_request:
+    types:
+      - closed
     branches: [main, stage]
   workflow_dispatch:  # Allows manual triggering
 
@@ -13,46 +13,45 @@ env:
   SERVER_USER:  ${{ secrets.SERVER_USER }}
   GITHUB_TOKEN: ${{ secrets.DEPLOY_TOKEN }}
   SERVER_IP:    ${{ github.ref_name == 'main' && secrets.PROD_SERVER_IP || secrets.STAGE_SERVER_IP }}
-  SERVER_TEST:  ${{ github.ref_name == 'main' && 'prod env --' || 'stage env --' }}
 
 jobs:
   build-and-test:
     runs-on: ubuntu-latest
-    #if: github.event_name == 'push'
+    if: github.event_name == 'push'
     steps:
       - name: Checkout Code
-        uses: actions/checkout@v3
-#
+        uses: actions/checkout@v4
+
 #      - name: Set up PHP
 #        uses: shivammathur/setup-php@v2
 #        with:
 #          php-version: '8.0'
 
       - name: Display ENV (test)
-        run: "echo $SERVER_TEST !! test"
+        run: "echo !!-test"
 
 #      - name: Install PHP Dependencies
 #        run: composer install --prefer-dist --no-progress --no-interaction --no-scripts
-#
+
 #      - name: Install NPM Dependencies
 #        run: npm install
 #
 #      - name: Build Frontend Assets
 #        run: npm run gulp:build:prod
-#
+
 #      - name: Run PHP Tests
-#        run: vendor/bin/phpunit
+#        run: path/to/phpunit
 
   deploy:
     runs-on: ubuntu-latest
-    needs: build-and-test
-    #if: github.event.pull_request.merged == true
+    #needs: build-and-test
+    if: (github.event_name == 'pull_request' && github.event.pull_request.merged == true)
     steps:
       - name: Checkout Code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Display ENV (deploy)
-        run: "echo $SERVER_TEST !! build"
+        run: "echo !!-deploy"
 #
 #      - name: Deploy
 #        env:
@@ -60,11 +59,11 @@ jobs:
 #        run: |
 #          ssh -i $DEPLOY_KEY -o StrictHostKeyChecking=no $SERVER_USER@$SERVER_IP "
 #            cd $PRODUCTION_DEPLOY_PATH &&
-#            git pull origin production &&
+#            git pull origin master &&
 #            composer install --no-dev --no-interaction &&
 #            npm ci &&
-#            npm run build &&
-#            php artisan migrate"
+#            npm run gulp:build:prod &&
+#            php ./scripts/commands config:decrypt"
 #
 #      - name: Tag Production Release
 #        if: success()
@@ -76,7 +75,7 @@ jobs:
 #  notification:
 #    name: Notify
 #    runs-on: ubuntu-latest
-#    needs: [ build ]
+#    needs: [deploy]
 #    if: always()
 #    steps:
 #      - uses: martialonline/workflow-status@v3
