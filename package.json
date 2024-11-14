@@ -4,6 +4,7 @@
   "description": "test-come.com code base",
   "main": "index.js",
   "scripts": {
+    "gulp:build:prod": "NODE_ENV='production' gulp build"
   },
   "author": "",
   "license": "ISC",
