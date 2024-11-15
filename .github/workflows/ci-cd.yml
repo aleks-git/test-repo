@@ -22,14 +22,13 @@ jobs:
       - name: Checkout Code
         uses: actions/checkout@v4
 
-      - name: Set up PHP
+      - name: Set up PHP and Composer
         uses: shivammathur/setup-php@v2
         with:
           php-version: '8.0'
           tools: composer:2.6.6
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-#          run: composer install --prefer-dist --no-progress --no-interaction --no-scripts
 
       - name: Install PHP Dependencies
         run: composer install --prefer-dist --no-progress --no-interaction --no-scripts
@@ -44,17 +43,14 @@ jobs:
 #          ssh_key_pub: ${{ secrets.SSH_KEY_PUB }}
 #          #run: composer install --prefer-dist --no-progress --no-interaction --no-scripts
 
-      - uses: actions/setup-node@v4
+      - name: Install Node & NPM Dependencies
+        uses: actions/setup-node@v4
         with:
           node-version: '22.9.0'
-      - run: npm install
-      - run: npm run gulp:build:prod
+          run: npm install
 
-#      - name: Install NPM Dependencies
-#        run: npm install
-#
-#      - name: Build Frontend Assets
-#        run: npm run gulp:build:prod
+      - name: Run NPM scripts
+        run: npm run gulp:build:prod
 
 #      - name: Run PHP Tests
 #        run: path/to/phpunit

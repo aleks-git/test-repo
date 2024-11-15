@@ -1,6 +1,5 @@
 {
     "require": {
-        "guzzlehttp/guzzle": "^6.3",
-        "composer/composer": "2.6.6"
+        "guzzlehttp/guzzle": "^6.3"
     }
 }
