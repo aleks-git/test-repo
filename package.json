@@ -1,0 +1,17 @@
+{
+  "name": "test-repo.com",
+  "version": "1.0.0",
+  "description": "test-come.com code base",
+  "main": "index.js",
+  "scripts": {
+    "gulp:build:prod": "NODE_ENV='production' gulp build"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "gulp": "^5.0.0"
+  },
+  "dependencies": {
+    "glob": "^11.0.0"
+  }
+}
