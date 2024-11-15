@@ -22,32 +22,27 @@ jobs:
       - name: Checkout Code
         uses: actions/checkout@v4
 
-      - name: Set up PHP
+      - name: Set up PHP and Composer
         uses: shivammathur/setup-php@v2
         with:
           php-version: '8.0'
+          tools: composer:2.6.6
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Install PHP Dependencies
-        uses: php-actions/composer@v6
-        with:
-          dev: no
-          version: '2.6.6'
-          php_version: '8.0'
-          ssh_key: ${{ secrets.SSH_KEY }}
-          ssh_key_pub: ${{ secrets.SSH_KEY_PUB }}
-#          #run: composer install --prefer-dist --no-progress --no-interaction --no-scripts
+        run: composer install --prefer-dist --no-progress --no-interaction --no-scripts
 
-      - uses: actions/setup-node@v4
+      - name: Install Node
+        uses: actions/setup-node@v4
         with:
           node-version: '22.9.0'
-      - run: npm install
-      - run: npm run gulp:build:prod
 
-#      - name: Install NPM Dependencies
-#        run: npm install
-#
-#      - name: Build Frontend Assets
-#        run: npm run gulp:build:prod
+      - name: Install NPM Dependencies
+        run: npm install
+
+      - name: Run NPM scripts
+        run: npm run gulp:build:prod
 
 #      - name: Run PHP Tests
 #        run: path/to/phpunit
@@ -62,6 +57,17 @@ jobs:
 
       - name: Display ENV (deploy)
         run: "echo !!-deploy"
+
+      - name: Install PHP Dependencies
+        uses: php-actions/composer@v6
+        with:
+          dev: no
+          version: '2.6.6'
+          php_version: '8.0'
+          ssh_key: ${{ secrets.SSH_KEY }}
+          ssh_key_pub: ${{ secrets.SSH_KEY_PUB }}
+          run: composer install --prefer-dist --no-progress --no-interaction --no-scripts
+
 #
 #      - name: Deploy
 #        env:
