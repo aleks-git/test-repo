@@ -31,6 +31,9 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 #          run: composer install --prefer-dist --no-progress --no-interaction --no-scripts
 
+      - name: Install PHP Dependencies
+        run: composer install --prefer-dist --no-progress --no-interaction --no-scripts
+
 #      - name: Install PHP Dependencies
 #        uses: php-actions/composer@v6
 #        with:
