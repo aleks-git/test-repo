@@ -43,11 +43,13 @@ jobs:
 #          ssh_key_pub: ${{ secrets.SSH_KEY_PUB }}
 #          #run: composer install --prefer-dist --no-progress --no-interaction --no-scripts
 
-      - name: Install Node & NPM Dependencies
+      - name: Install Node
         uses: actions/setup-node@v4
         with:
           node-version: '22.9.0'
-          run: npm install
+
+      - name: Install NPM Dependencies
+        run: npm install
 
       - name: Run NPM scripts
         run: npm run gulp:build:prod
