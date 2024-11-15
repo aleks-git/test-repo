@@ -58,15 +58,14 @@ jobs:
       - name: Display ENV (deploy)
         run: "echo !!-deploy"
 
-      - name: Install PHP Dependencies
-        uses: php-actions/composer@v6
+      - name: Set up PHP
+        uses: shivammathur/setup-php@v2
         with:
-          dev: no
-          version: '2.6.6'
-          php_version: '8.0'
-          ssh_key: ${{ secrets.SSH_KEY }}
-          ssh_key_pub: ${{ secrets.SSH_KEY_PUB }}
-          run: composer install --prefer-dist --no-progress --no-interaction --no-scripts
+          php-version: '8.0'
+
+      - name: Install PHP Dependencies
+        run: composer install --prefer-dist --no-progress --no-interaction --no-scripts
+
 
 #
 #      - name: Deploy
