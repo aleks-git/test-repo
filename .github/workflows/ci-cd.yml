@@ -2,12 +2,17 @@
 name: CI/CD
 on:
   push:
-    branches: [ main, stage ]
+    branches: [main, stage]
   pull_request:
 #    types:
 #      - closed
     branches: [main, stage]
   workflow_dispatch:  # Allows manual triggering
+    inputs:
+      type:
+        description: 'Workflow type [pull_request, push]'
+        required: true
+        default: 'pull_request'
 
 env:
   SERVER_USER:  ${{ secrets.SERVER_USER }}
@@ -21,7 +26,7 @@ jobs:
     steps:
       - name: Checkout Code
         uses: actions/checkout@v4
-        
+
       - name: 🔎 Check IP
         run: curl https://api.ipify.org
 
