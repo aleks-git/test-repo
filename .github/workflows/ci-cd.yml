@@ -74,16 +74,28 @@ jobs:
       - name: Install PHP Dependencies
         run: composer install --prefer-dist --no-progress --no-interaction --no-scripts
 
-      - name: Deploy
-        env:
-          DEPLOY_KEY: ${{ secrets.DEPLOY_TOKEN }}
-        run: |
-          ssh -i $DEPLOY_KEY -o StrictHostKeyChecking=no $SERVER_USER@$SERVER_IP "
-            cd cd www/test-repo/ &&
-            git pull origin main &&
-            composer install --no-dev --no-interaction &&
-            npm ci &&
-            npm run gulp:build:prod"
+      - name: Deploy code
+        uses: appleboy/ssh-action@master
+        with:
+          host: cruze.cityhost.com.ua
+          username: ch24630afb
+          key: ${{ secrets.DEPLOY_TOKEN }}
+          script: |
+            cd www/test-repo
+            git pull origin main
+            npm install
+            npm run gulp:build:prod 
+
+#      - name: Deploy
+#        env:
+#          DEPLOY_KEY: ${{ secrets.DEPLOY_TOKEN }}
+#        run: |
+#          ssh -i $DEPLOY_KEY -o StrictHostKeyChecking=no $SERVER_USER@$SERVER_IP "
+#            cd www/test-repo/ &&
+#            git pull origin main &&
+#            composer install --no-dev --no-interaction &&
+#            npm ci &&
+#            npm run gulp:build:prod"
 
 
 #
