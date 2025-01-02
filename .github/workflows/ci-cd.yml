@@ -101,17 +101,22 @@ jobs:
 
       - name: Set up SSH
         run: |
-          mkdir -p ~/.ssh
-          echo "$GITHUB_TOKEN" > ~/.ssh/id_rsa
-          chmod 600 ~/.ssh/id_rsa
-          # To skip SSH host verification (unsafe for production, consider validating the fingerprint)
-          touch ~/.ssh/known_hosts
-          ssh-keyscan -H $KNOWN_HOST >> ~/.ssh/known_hosts
+          # mkdir -p ~/.ssh
+          # echo "$GITHUB_TOKEN" > ~/.ssh/id_rsa
+          # chmod 600 ~/.ssh/id_rsa
+          # # To skip SSH host verification (unsafe for production, consider validating the fingerprint)
+          # touch ~/.ssh/known_hosts
+          # ssh-keyscan -H $KNOWN_HOST >> ~/.ssh/known_hosts
+
+          mkdir -p ~/.ssh/
+          echo "$GITHUB_TOKEN" > ../private.key
+          sudo chmod 600 ../private.key
+          echo "$KNOWN_HOST" > ~/.ssh/known_hosts
 
       - name: Deploy to Server
         run: |
           echo "Starting Deployment"
-          ssh -i ~/.ssh/id_rsa -o StrictHostKeyChecking=no -p 22 $SERVER_USER@$SERVER_IP cd public_html/test-repo/ && git pull origin main
+          ssh -i ~/.ssh/private.key -o StrictHostKeyChecking=no -p 22 $SERVER_USER@$SERVER_IP cd public_html/test-repo/ && git pull origin main
 
 
 #
