@@ -77,23 +77,23 @@ jobs:
       - name: Deploy code
         uses: appleboy/ssh-action@master
         with:
-          host: cruze.cityhost.com.ua
-          username: ch24630afb
+          host: $SERVER_IP
+          username: $SERVER_USER
           key: ${{ secrets.DEPLOY_TOKEN }}
           script: |
-            cd www/test-repo
+            public_html/test-repo/
             git pull origin main
-            npm install
-            npm run gulp:build:prod 
+#            npm install
+#            npm run gulp:build:prod
 
 #      - name: Deploy
 #        env:
 #          DEPLOY_KEY: ${{ secrets.DEPLOY_TOKEN }}
 #        run: |
 #          ssh -i $DEPLOY_KEY -o StrictHostKeyChecking=no $SERVER_USER@$SERVER_IP "
-#            cd www/test-repo/ &&
-#            git pull origin main &&
-#            composer install --no-dev --no-interaction &&
+#            cd public_html/test-repo/ &&
+#            git pull origin main"
+#           && composer install --no-dev --no-interaction &&
 #            npm ci &&
 #            npm run gulp:build:prod"
 
