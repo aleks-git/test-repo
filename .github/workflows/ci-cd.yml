@@ -90,7 +90,7 @@ jobs:
         # env:
         #   DEPLOY_KEY: ${{ secrets.DEPLOY_TOKEN }}
         run: |
-          ssh -i $GITHUB_TOKEN $SERVER_USER@$SERVER_IP "
+          ssh $GITHUB_TOKEN $SERVER_USER@$SERVER_IP "
             cd public_html/test-repo/ &&
             git pull origin main"
 #           && composer install --no-dev --no-interaction &&
