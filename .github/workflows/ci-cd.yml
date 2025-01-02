@@ -87,8 +87,8 @@ jobs:
 #            npm run gulp:build:prod
 
       - name: Deploy
-        env:
-          DEPLOY_KEY: ${{ secrets.DEPLOY_TOKEN }}
+        # env:
+        #   DEPLOY_KEY: ${{ secrets.DEPLOY_TOKEN }}
         run: |
           ssh -i $DEPLOY_KEY -o StrictHostKeyChecking=no $SERVER_USER@$SERVER_IP "
             cd public_html/test-repo/ &&
