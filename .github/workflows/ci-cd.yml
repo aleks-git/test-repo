@@ -109,9 +109,9 @@ jobs:
           # ssh-keyscan -H $SSH_KNOWN_HOSTS >> ~/.ssh/known_hosts
 
           mkdir -p ~/.ssh/
-          echo "$SSH_PRIVATE_KEYN" > ~/.ssh/private.key
+          echo "$SSH_PRIVATE_KEY" > ~/.ssh/private.key
           sudo chmod 600 ~/.ssh/private.key
-          ssh-keyscan -H $SSH_KNOWN_HOSTS >> ~/.ssh/known_hosts
+          echo "$SSH_KNOWN_HOSTS" > ~/.ssh/known_hosts
         shell: bash
         env:
           SSH_PRIVATE_KEY: ${{secrets.DEPLOY_TOKEN}}
