@@ -121,7 +121,7 @@ jobs:
       - name: Deploy to Server
         run: |
           echo "Starting Deployment"
-          echo ~/.ssh/private.key
+          more ~/.ssh/private.key
           # ssh -i ~/.ssh/private.key $SERVER_USER@$SERVER_IP /bin/bash
           ssh -i ~/.ssh/private.key -tt $SERVER_USER@$SERVER_IP
 
