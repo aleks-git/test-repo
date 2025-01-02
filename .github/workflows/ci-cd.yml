@@ -112,7 +112,7 @@ jobs:
           echo "$SSH_PRIVATE_KEYN" > ~/.ssh/private.key
           sudo chmod 600 ~/.ssh/private.key
           echo "$SSH_KNOWN_HOSTS" > ~/.ssh/known_hosts
-        # shell: bash
+        shell: bash
         env:
           SSH_PRIVATE_KEY: ${{secrets.DEPLOY_TOKEN}}
           SSH_KNOWN_HOSTS: ${{secrets.KNOWN_HOSTS}}
@@ -121,7 +121,7 @@ jobs:
       - name: Deploy to Server
         run: |
           echo "Starting Deployment"
-          ssh -i ~/.ssh/private.key $SERVER_USER@$SERVER_IP /bin/bash
+          ssh -i ~/.ssh/private.key $SERVER_USER@$SERVER_IP
 
 
 #
