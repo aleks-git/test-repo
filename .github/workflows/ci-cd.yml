@@ -121,7 +121,7 @@ jobs:
       - name: Deploy to Server
         run: |
           echo "Starting Deployment"
-          ssh -i $SSH_KEY_PATH $SERVER_USER@$SERVER_IP cd public_html/test-repo/ && git pull origin main
+          ssh -i $SSH_KEY_PATH $SERVER_USER@$SERVER_IP
 
 
 #
