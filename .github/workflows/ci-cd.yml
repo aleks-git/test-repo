@@ -117,8 +117,6 @@ jobs:
           # sudo touch ~/.ssh/known_hosts
           # sudo ssh-keyscan -H "195.16.88.26" >> ~/.ssh/known_hosts
           # sudo chmod 600 ~/.ssh/known_hosts
-
-          more ~/.ssh/known_hosts
         # shell: bash
         # env:
         #   SSH_PRIVATE_KEY: ${{secrets.DEPLOY_TOKEN}}
@@ -128,6 +126,7 @@ jobs:
       - name: Deploy to Server
         run: |
           echo "Starting Deployment"
+          more ~/.ssh/known_hosts
           # more ~/.ssh/private.key
           ssh -i ~/.ssh/private.key alexi032@195.16.88.26 /bin/bash
           # ssh -i ~/.ssh/private.key -o StrictHostKeyChecking=no -p 22 -tt alexi032@195.16.88.26
