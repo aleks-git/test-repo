@@ -136,7 +136,7 @@ jobs:
           sudo chmod 600 ~/.ssh/private.key
           mkdir -p ~/.ssh/ && touch ~/.ssh/known_hosts
           ssh-keyscan "$KNOWN_HOST" >> ~/.ssh/known_hosts
-        # shell: bash
+        shell: bash
       - name: Deploy to Server
         run: >
           ssh -i ~/.ssh/private.key -tt alexi032@195.16.88.26
