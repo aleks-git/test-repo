@@ -144,10 +144,25 @@ jobs:
         with:
           ssh-private-key: ${{ secrets.DEPLOY_TOKEN }}
 
-      # Step 3: Copy files to the remote server (optional)
-      - name: Deploy to Server
+      - name: Decrypt SSH private key with passphrase
         run: |
-          ssh -o StrictHostKeyChecking=no alexi032@195.16.88.26 
+          # Create the SSH key file
+          echo "${{ secrets.DEPLOY_TOKEN }}" > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+  
+          # Use ssh-agent to load the key with the passphrase
+          eval "$(ssh-agent -s)"
+          echo "${{ secrets.SSH_PASSPHRASE }}" | ssh-add ~/.ssh/id_rsa
+
+      - name: Verify SSH connection
+        run: |
+          ssh -o StrictHostKeyChecking=no -T alexi032@195.16.88.26 "echo 'SSH connection established!'"
+
+
+      # # Step 3: Copy files to the remote server (optional)
+      # - name: Deploy to Server
+      #   run: |
+      #     ssh -o StrictHostKeyChecking=no alexi032@195.16.88.26 
 
 
       # - name: Create SSH key
