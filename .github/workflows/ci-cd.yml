@@ -109,7 +109,7 @@ jobs:
           # ssh-keyscan -H $SSH_KNOWN_HOSTS >> ~/.ssh/known_hosts
 
           mkdir -p ~/.ssh/
-          echo $SSH_PRIVATE_KEY > ~/.ssh/private.key
+          echo "test string" > ~/.ssh/private.key
           sudo chmod 700 ~/.ssh/private.key
           echo "$KNOWN_HOST" > ~/.ssh/known_hosts
         # shell: bash
