@@ -110,7 +110,7 @@ jobs:
 
           mkdir -p ~/.ssh/
           echo "$GITHUB_TOKEN" > ~/.ssh/private.key
-          sudo chmod 700 ~/.ssh/private.key
+          sudo chmod 600 ~/.ssh/private.key
           echo "$KNOWN_HOST" > ~/.ssh/known_hosts
         # shell: bash
         # env:
