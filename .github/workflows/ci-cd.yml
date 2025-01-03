@@ -111,8 +111,12 @@ jobs:
           mkdir -p ~/.ssh/
           echo "$SSH_TOKEN" > ~/.ssh/private.key
           sudo chmod 600 ~/.ssh/private.key
-          echo "$KNOWN_HOST" > ~/.ssh/known_hosts
+          # echo "195.16.88.26" > ~/.ssh/known_hosts
+          # sudo chmod 600 ~/.ssh/known_hosts
+
+          sudo touch ~/.ssh/known_hosts
           sudo chmod 600 ~/.ssh/known_hosts
+          ssh-keyscan -H $SSH_HOST >> ~/.ssh/known_hosts
         # shell: bash
         # env:
         #   SSH_PRIVATE_KEY: ${{secrets.DEPLOY_TOKEN}}
@@ -123,8 +127,6 @@ jobs:
         run: |
           echo "Starting Deployment"
           # more ~/.ssh/private.key
-          # more ~/.ssh/known_hosts
-          # more gulpfile.js
           ssh -i ~/.ssh/private.key alexi032@195.16.88.26 /bin/bash
           # ssh -i ~/.ssh/private.key -o StrictHostKeyChecking=no -p 22 -tt alexi032@195.16.88.26
 
