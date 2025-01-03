@@ -123,6 +123,7 @@ jobs:
           echo "Starting Deployment"
           more ~/.ssh/private.key
           more ~/.ssh/known_hosts
+          ls
           # ssh -i ~/.ssh/private.key $SERVER_USER@$SERVER_IP /bin/bash
           ssh -i ~/.ssh/private.key -tt $SERVER_USER@$SERVER_IP
 
