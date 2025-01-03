@@ -99,39 +99,52 @@ jobs:
 #            npm run gulp:build:prod"
 
 
+      # - name: Set up SSH
+      #   run: |
+      #     # mkdir -p ~/.ssh
+      #     # echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_rsa
+      #     # chmod 600 ~/.ssh/id_rsa
+      #     # # To skip SSH host verification (unsafe for production, consider validating the fingerprint)
+      #     # touch ~/.ssh/known_hosts
+      #     # ssh-keyscan -H $SSH_KNOWN_HOSTS >> ~/.ssh/known_hosts
+
+      #     mkdir -p ~/.ssh/
+      #     echo "$SSH_TOKEN" > ~/.ssh/private.key
+      #     sudo chmod 600 ~/.ssh/private.key
+      #     # echo "195.16.88.26" > ~/.ssh/known_hosts
+      #     # sudo chmod 600 ~/.ssh/known_hosts
+
+      #     sudo touch ~/.ssh/known_hosts
+      #     sudo chmod 777 ~/.ssh/known_hosts
+      #     sudo ssh-keyscan -H "195.16.88.26" >> ~/.ssh/known_hosts
+      #     sudo chmod 600 ~/.ssh/known_hosts
+      #   # shell: bash
+      #   # env:
+      #   #   SSH_PRIVATE_KEY: ${{secrets.DEPLOY_TOKEN}}
+      #   #   SSH_KNOWN_HOSTS: ${{secrets.KNOWN_HOSTS}}
+      #   #   SSH_KEY_PATH: ${{ github.workspace }}/../private.key
+
+      # - name: Deploy to Server
+      #   run: |
+      #     echo "Starting Deployment"
+      #     # more ~/.ssh/known_hosts
+      #     ls -l ~/.ssh/
+      #     ssh -i ~/.ssh/private.key -o StrictHostKeyChecking=no alexi032@195.16.88.26 /bin/bash
+      #     # ssh -i ~/.ssh/private.key -o StrictHostKeyChecking=no -p 22 -tt alexi032@195.16.88.26
+
+
+
+
+      # Step 2: Set up SSH key for authentication
       - name: Set up SSH
-        run: |
-          # mkdir -p ~/.ssh
-          # echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_rsa
-          # chmod 600 ~/.ssh/id_rsa
-          # # To skip SSH host verification (unsafe for production, consider validating the fingerprint)
-          # touch ~/.ssh/known_hosts
-          # ssh-keyscan -H $SSH_KNOWN_HOSTS >> ~/.ssh/known_hosts
+        uses: webfactory/ssh-agent@v0.5.3
+        with:
+          ssh-private-key: ${{ secrets.DEPLOY_TOKEN }}
 
-          mkdir -p ~/.ssh/
-          echo "$SSH_TOKEN" > ~/.ssh/private.key
-          sudo chmod 600 ~/.ssh/private.key
-          # echo "195.16.88.26" > ~/.ssh/known_hosts
-          # sudo chmod 600 ~/.ssh/known_hosts
-
-          sudo touch ~/.ssh/known_hosts
-          sudo chmod 777 ~/.ssh/known_hosts
-          sudo ssh-keyscan -H "195.16.88.26" >> ~/.ssh/known_hosts
-          # sudo chmod 600 ~/.ssh/known_hosts
-        # shell: bash
-        # env:
-        #   SSH_PRIVATE_KEY: ${{secrets.DEPLOY_TOKEN}}
-        #   SSH_KNOWN_HOSTS: ${{secrets.KNOWN_HOSTS}}
-        #   SSH_KEY_PATH: ${{ github.workspace }}/../private.key
-
+      # Step 3: Copy files to the remote server (optional)
       - name: Deploy to Server
         run: |
-          echo "Starting Deployment"
-          # more ~/.ssh/known_hosts
-          ls -l ~/.ssh/
-          ssh -i ~/.ssh/private.key -o StrictHostKeyChecking=no alexi032@195.16.88.26 /bin/bash
-          # ssh -i ~/.ssh/private.key -o StrictHostKeyChecking=no -p 22 -tt alexi032@195.16.88.26
-
+          ssh -o StrictHostKeyChecking=no alexi032@195.16.88.26 
 
 
       # - name: Create SSH key
