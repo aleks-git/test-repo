@@ -156,7 +156,7 @@ jobs:
           echo "${{ secrets.SSH_PASSPHRASE }}" | ssh-add ~/.ssh/id_rsa
 
           touch ~/.ssh/known_hosts
-          ssh-keyscan -H "195.16.88.26" >> ~/.ssh/known_hosts
+          ssh-keyscan -H "$secrets.KNOWN_HOST" >> ~/.ssh/known_hosts
 
       - name: Verify SSH connection
         run: |
