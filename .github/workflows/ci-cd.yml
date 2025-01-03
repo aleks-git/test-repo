@@ -16,7 +16,7 @@ on:
 
 env:
   SERVER_USER:  ${{ secrets.SERVER_USER }}
-  SSH_TOKEN: ${{ secrets.DEPLOY_TOKEN }}
+  SSH_TOKEN:    ${{ secrets.DEPLOY_TOKEN }}
   KNOWN_HOST:   ${{ secrets.KNOWN_HOST }}
   SERVER_IP:    ${{ github.ref_name == 'main' && secrets.PROD_SERVER_IP || secrets.STAGE_SERVER_IP }}
 
@@ -133,16 +133,16 @@ jobs:
       #     # ssh -i ~/.ssh/private.key -o StrictHostKeyChecking=no -p 22 -tt alexi032@195.16.88.26
 
 
-      - name: Install Node
-        uses: actions/setup-node@v4
-        with:
-          node-version: '22.9.0'
+      # - name: Install Node
+      #   uses: actions/setup-node@v4
+      #   with:
+      #     node-version: '22.9.0'
 
       # Step 2: Set up SSH key for authentication
-      - name: Set up SSH
-        uses: webfactory/ssh-agent@v0.9.0
-        with:
-          ssh-private-key: ${{ secrets.DEPLOY_TOKEN }}
+      # - name: Set up SSH
+      #   uses: webfactory/ssh-agent@v0.9.0
+      #   with:
+      #     ssh-private-key: ${{ secrets.DEPLOY_TOKEN }}
 
       - name: Decrypt SSH private key with passphrase
         run: |
