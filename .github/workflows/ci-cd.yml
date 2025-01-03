@@ -147,6 +147,7 @@ jobs:
       - name: Decrypt SSH private key with passphrase
         run: |
           # Create the SSH key file
+          mkdir -p ~/.ssh
           echo "${{ secrets.DEPLOY_TOKEN }}" > ~/.ssh/id_rsa
           chmod 600 ~/.ssh/id_rsa
   
