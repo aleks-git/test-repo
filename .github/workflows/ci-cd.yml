@@ -16,7 +16,7 @@ on:
 
 env:
   SERVER_USER:  ${{ secrets.SERVER_USER }}
-  GITHUB_TOKEN: ${{ secrets.DEPLOY_TOKEN }}
+  SSH_TOKEN: ${{ secrets.DEPLOY_TOKEN }}
   KNOWN_HOST:   ${{ secrets.KNOWN_HOST }}
   SERVER_IP:    ${{ github.ref_name == 'main' && secrets.PROD_SERVER_IP || secrets.STAGE_SERVER_IP }}
 
@@ -91,7 +91,7 @@ jobs:
 #        # env:
 #        #   DEPLOY_KEY: ${{ secrets.DEPLOY_TOKEN }}
 #        run: |
-#          ssh $GITHUB_TOKEN $SERVER_USER@$SERVER_IP "
+#          ssh $SSH_TOKEN $SERVER_USER@$SERVER_IP "
 #            cd public_html/test-repo/ &&
 #           git pull origin main"
 #           && composer install --no-dev --no-interaction &&
@@ -109,7 +109,7 @@ jobs:
       #     # ssh-keyscan -H $SSH_KNOWN_HOSTS >> ~/.ssh/known_hosts
 
       #     mkdir -p ~/.ssh/
-      #     echo "$GITHUB_TOKEN" > ~/.ssh/private.key
+      #     echo "$SSH_TOKEN" > ~/.ssh/private.key
       #     sudo chmod 600 ~/.ssh/private.key
       #     echo "$KNOWN_HOST" > ~/.ssh/known_hosts
       #   # shell: bash
@@ -132,13 +132,10 @@ jobs:
       - name: Create SSH key
         run: |
           mkdir -p ~/.ssh/
-          echo "$SSH_PRIVATE_KEY" > ~/.ssh/private.key
+          echo "$SSH_TOKEN" > ~/.ssh/private.key
           sudo chmod 600 ~/.ssh/private.key
-          echo "$SSH_KNOWN_HOSTS" > ~/.ssh/known_hosts
+          echo "$KNOWN_HOST" > ~/.ssh/known_hosts
         shell: bash
-        env:
-          SSH_PRIVATE_KEY: ${{secrets.DEPLOY_TOKEN}}
-          SSH_KNOWN_HOSTS: ${{secrets.KNOWN_HOST}}
       - name: Deploy to Server
         run: >
           ssh -i ~/.ssh/private.key -tt alexi032@195.16.88.26
