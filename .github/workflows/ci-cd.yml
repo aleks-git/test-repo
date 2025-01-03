@@ -134,8 +134,9 @@ jobs:
           mkdir -p ~/.ssh/
           echo "$SSH_TOKEN" > ~/.ssh/private.key
           sudo chmod 600 ~/.ssh/private.key
-          mkdir -p ~/.ssh/ && touch ~/.ssh/known_hosts
-          ssh-keyscan "$KNOWN_HOST" >> ~/.ssh/known_hosts
+          # mkdir -p ~/.ssh/ && touch ~/.ssh/known_hosts
+          # ssh-keyscan "195.16.88.26" >> ~/.ssh/known_hosts
+          echo ssh-keyscan -H "195.16.88.26" > ~/.ssh/known_hosts
         shell: bash
       - name: Deploy to Server
         run: >
